@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "618547159317",
+    "project_id": "hidaya-fb24f",
+    "storage_bucket": "hidaya-fb24f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618547159317:android:a4a5a0f9026033b8ed091c",
+        "android_client_info": {
+          "package_name": "com.example.owli_aleazm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIC2oWby30pumFBMDtEIwlvorvC25cDrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
