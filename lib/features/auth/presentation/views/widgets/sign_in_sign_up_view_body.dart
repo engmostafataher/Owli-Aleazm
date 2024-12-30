@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 import 'page_head.dart';
 import 'sign_in_sign_up_form.dart';
 import 'social_media_login.dart';

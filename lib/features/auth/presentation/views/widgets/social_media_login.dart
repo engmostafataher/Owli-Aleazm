@@ -29,13 +29,13 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              onTap: () {},
-              child: const SocialMediaLoginItem(
-                icon: Icons.apple_outlined,
-                size: 30,
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {},
+            //   child: const SocialMediaLoginItem(
+            //     icon: Icons.apple_outlined,
+            //     size: 30,
+            //   ),
+            // ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () async {
@@ -54,13 +54,13 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
               ),
             ),
             const SizedBox(width: 10),
-            InkWell(
-              onTap: () {},
-              child: const SocialMediaLoginItem(
-                icon: Icons.facebook_outlined,
-                size: 30,
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {},
+            //   child: const SocialMediaLoginItem(
+            //     icon: Icons.facebook_outlined,
+            //     size: 30,
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(height: 25),

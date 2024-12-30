@@ -1,5 +1,4 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_color.dart';
@@ -48,13 +47,13 @@ class BuildHeaderBackground extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              }, icon: Icon(Icons.arrow_back_ios_new_outlined,
-              size: 20,),
+            //  IconButton(
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //   }, icon: Icon(Icons.arrow_back_ios_new_outlined,
+            //   size: 20,),
               
-            ),
+            // ),
             const SizedBox(width: 60),
             Text(
               "الملف  الشخصي",
@@ -75,7 +74,7 @@ class BuildProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return const Positioned(
       bottom: 0,
       right: 110,
       child: Column(
@@ -86,6 +85,7 @@ class BuildProfileAvatar extends StatelessWidget {
             child: CircleAvatar(
               radius: 47,
               backgroundColor: Colors.black,
+              backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXXckRlC33zt7zHBLpEEEeqY_MGIn89LOdGw&s'),
               // backgroundImage: NetworkImage('${FirebaseAuth.instance.currentUser!.photoURL}?? https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png'),
             ),
           ),

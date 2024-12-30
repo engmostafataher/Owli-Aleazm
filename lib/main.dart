@@ -31,21 +31,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-     bool hasToken = await _checkToken();
+    //  bool hasToken = await _checkToken();
   await SharedPref.init();
   setupServiceLocator();
-  runApp(MyApp(hasToken: hasToken));
+  runApp(MyApp());
 }
 
-Future<bool> _checkToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? token = prefs.getString('firebase_token');
-  return token != null && token.isNotEmpty;
-}
+// Future<bool> _checkToken() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   String? token = prefs.getString('firebase_token');
+//   return token != null && token.isNotEmpty;
+// }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.hasToken});
-   final bool hasToken;
+  const MyApp({super.key, });
+  //  final bool hasToken;
 
   // This widget is the root of your application.
   @override
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: GoogleFonts.montserratTextTheme.toString(),
         ),
-        home:  hasToken?const SplashTrueView():const SplashView() ,
+        home: const SplashView() ,
         debugShowCheckedModeBanner: false,
       ),
     );

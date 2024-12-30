@@ -32,21 +32,47 @@ class _SignInSignUpFormState extends State<SignInSignUpForm> {
   final TextEditingController emailLoginController = TextEditingController();
   final TextEditingController passwordLoginController = TextEditingController();
 
+  Future<void> loginWithEmailPassword() async {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: emailLoginController.text,
+        password: passwordLoginController.text,
+      );
+
+      String? token = await userCredential.user?.getIdToken();
+      if (token != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomeView()),
+        );
+      }
+    } catch (e) {
+      print("Login error: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SigninSignupCubit, SigninSignupState>(
-        listener: (context, state) async{
+        listener: (context, state) async {
       if (state is SigninSignupLoading) {
         isLoading = true;
       } else if (state is SigninSignupSuccess) {
-         SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString('firebase_token', 'example_token');
+        loginWithEmailPassword();
 
-            // الانتقال إلى صفحة Home بعد تسجيل الدخول
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomeView()),
-            );
+        // الانتقال إلى صفحة Home بعد تسجيل الدخول
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomeView()),
+        );
         // Navigator.push(context, MaterialPageRoute(builder: (context)=>const MyHomeView()));
         // GoRouter.of(context).push(AppRouter.kMyHomeView);
         isLoading = false;
@@ -188,58 +214,66 @@ class _SignInSignUpFormState extends State<SignInSignUpForm> {
                   )
                 : CustomButton(
                     onTap: () async {
-  if (isSignIn == true) {
-    print("true");
-    if (formKey.currentState!.validate()) {
-      try {
-        // تسجيل مستخدم جديد
-        BlocProvider.of<SigninSignupCubit>(context).registerUser(
-          email: emailCreate,
-          password: passwordCreate,
-        );
-        await auth.createUserWithEmailAndPassword(
-          email: emailCreate,
-          password: passwordCreate,
-        );
-        showSnackBar(context, "Account created successfully!");
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'email-already-in-use') {
-          showSnackBar(context, 'This email is already registered. Please log in.');
-        } else {
-          showSnackBar(context, 'An error occurred: ${e.message}');
-        }
-      } catch (e) {
-        showSnackBar(context, 'Unexpected error: $e');
-      }
-    }
-  } else {
-    print("false");
-    if (formKey.currentState!.validate()) {
-      try {
-        // تسجيل الدخول
-        BlocProvider.of<SigninSignupCubit>(context).logInUser(
-          email: emailLogin,
-          password: passwordLogin,
-        );
-        await auth.signInWithEmailAndPassword(
-          email: emailLogin,
-          password: passwordLogin,
-        );
-        showSnackBar(context, "Login successful!");
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          showSnackBar(context, 'No user found for this email.');
-        } else if (e.code == 'wrong-password') {
-          showSnackBar(context, 'Wrong password provided for this user.');
-        } else {
-          showSnackBar(context, 'An error occurred: ${e.message}');
-        }
-      } catch (e) {
-        showSnackBar(context, 'Unexpected error: $e');
-      }
-    }
-  }
-},
+                      if (isSignIn == true) {
+                        print("true");
+                        if (formKey.currentState!.validate()) {
+                          try {
+                            // تسجيل مستخدم جديد
+                            BlocProvider.of<SigninSignupCubit>(context)
+                                .registerUser(
+                              email: emailCreate,
+                              password: passwordCreate,
+                            );
+                            await auth.createUserWithEmailAndPassword(
+                              email: emailCreate,
+                              password: passwordCreate,
+                            );
+                            showSnackBar(
+                                context, "Account created successfully!");
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'email-already-in-use') {
+                              showSnackBar(context,
+                                  'This email is already registered. Please log in.');
+                            } else {
+                              showSnackBar(
+                                  context, 'An error occurred: ${e.message}');
+                            }
+                          } catch (e) {
+                            showSnackBar(context, 'Unexpected error: $e');
+                          }
+                        }
+                      } else {
+                        print("false");
+                        if (formKey.currentState!.validate()) {
+                          try {
+                            // تسجيل الدخول
+                            BlocProvider.of<SigninSignupCubit>(context)
+                                .logInUser(
+                              email: emailLogin,
+                              password: passwordLogin,
+                            );
+                            await auth.signInWithEmailAndPassword(
+                              email: emailLogin,
+                              password: passwordLogin,
+                            );
+                            showSnackBar(context, "Login successful!");
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              showSnackBar(
+                                  context, 'No user found for this email.');
+                            } else if (e.code == 'wrong-password') {
+                              showSnackBar(context,
+                                  'Wrong password provided for this user.');
+                            } else {
+                              showSnackBar(
+                                  context, 'An error occurred: ${e.message}');
+                            }
+                          } catch (e) {
+                            showSnackBar(context, 'Unexpected error: $e');
+                          }
+                        }
+                      }
+                    },
                     text: "تسجيل الدخول",
                   ),
             const SizedBox(height: 25),
@@ -267,7 +301,8 @@ class ForgetPassText extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPassView()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ForgetPassView()));
         // GoRouter.of(context).push(AppRouter.kForgetPassView);
       },
       child: Text(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'home_view.dart';
 import 'khotab_view.dart';
 import 'profile_view.dart';
